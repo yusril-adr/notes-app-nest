@@ -6,7 +6,7 @@ export class AppService {
   getHello(): GetHelloResponseType {
     return {
       status: 200,
-      message: 'Hello World !',
+      message: 'Hello World!',
     };
   }
 }
