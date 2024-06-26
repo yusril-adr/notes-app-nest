@@ -11,32 +11,28 @@ exports.shorthands = undefined;
 exports.up = (pgm) => {
   pgm.createTable('users', {
     id: {
-      type: 'string',
+      type: 'uuid',
       primaryKey: true,
       unique: true,
       notNull: true,
-    },
-    auth_id: {
-      type: 'uuid',
-      notNull: true,
-      references: 'auths',
+      default: pgm.func('gen_random_uuid()'),
     },
     username: {
-      type: 'text',
-      notNull: true,
+      type: 'string',
       unique: true,
-      onDelete: 'CASCADE',
     },
     email: {
-      type: 'text',
+      type: 'string',
       notNull: true,
       unique: true,
-      onDelete: 'CASCADE',
+    },
+    password: {
+      type: 'string',
+      notNull: true,
     },
     profile_img: {
-      type: 'text',
+      type: 'string',
       unique: true,
-      notNull: true,
     },
     created_at: {
       type: 'datetime',

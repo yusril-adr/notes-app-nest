@@ -11,23 +11,29 @@ exports.shorthands = undefined;
 exports.up = (pgm) => {
   pgm.createTable('notes', {
     id: {
-      type: 'text',
+      type: 'uuid',
       primaryKey: true,
+      unique: true,
+      notNull: true,
+      default: pgm.func('gen_random_uuid()'),
+    },
+    shortId: {
+      type: 'string',
       unique: true,
       notNull: true,
     },
     user_id: {
-      type: 'string',
+      type: 'uuid',
       notNull: true,
       references: 'users',
       onDelete: 'CASCADE',
     },
     header: {
-      type: 'text',
+      type: 'string',
       notNull: true,
     },
     body: {
-      type: 'text',
+      type: 'string',
       notNull: true,
     },
     created_at: {

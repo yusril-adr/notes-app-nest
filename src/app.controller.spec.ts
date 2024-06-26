@@ -15,11 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toEqual({
-        status: 200,
-        message: 'Hello World!',
-      });
+    it('should return "This service is running properly"', () => {
+      expect(appController.getHello()).toBe('This service is running properly');
     });
   });
 });

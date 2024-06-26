@@ -22,7 +22,7 @@ exports.up = (pgm) => {
       notNull: true,
     },
     user_id: {
-      type: 'string',
+      type: 'uuid',
       notNull: true,
       references: 'users',
       onDelete: 'CASCADE',
