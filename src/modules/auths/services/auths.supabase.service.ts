@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { SupabaseProvider } from '@components/supabase/supabase.provider';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@global/types/supabase-types';
 
 import { AuthsService } from '../auths.service';
 import {
@@ -14,7 +15,6 @@ import {
   VerifyForgotTokenParams,
   VerifyForgotTokenResult,
 } from '../types/auths.service';
-import { Database } from '@global/types/supabase-types';
 import { Auth } from '../entities/auth.entity';
 
 @Injectable()

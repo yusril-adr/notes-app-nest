@@ -14,7 +14,15 @@ import {
   Put,
   ForbiddenException,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiHeader,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 
 import * as bcrypt from 'bcrypt';
@@ -70,11 +78,17 @@ export class AuthsController {
     });
 
     return wrapper.response<RegisterResponse>({
+      statusCode: HttpStatus.CREATED,
       data: { id, username, email },
       message: 'Register Success',
     });
   }
 
+  @ApiOperation({ summary: 'Login By Email & Password' })
+  @ApiOkResponse({ description: 'OK' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(
@@ -119,6 +133,11 @@ export class AuthsController {
     });
   }
 
+  @ApiOperation({ summary: 'Login By Access Token' })
+  @ApiHeader({
+    name: 'Authorization',
+    description: 'Bearer Access Token',
+  })
   @Get('login/token')
   @UseGuards(AccessTokenGuard)
   async loginByToken(
@@ -140,6 +159,11 @@ export class AuthsController {
     });
   }
 
+  @ApiOperation({ summary: 'Renew Access Token' })
+  @ApiHeader({
+    name: 'Authorization',
+    description: 'Bearer Refresh Token',
+  })
   @Get('renew-token')
   @UseGuards(RefreshTokenGuard)
   async renewAccessToken(
@@ -172,6 +196,7 @@ export class AuthsController {
     });
   }
 
+  @ApiOperation({ summary: 'Log Out User' })
   @Delete('logout')
   @UseGuards(RefreshTokenGuard)
   async logout(@Request() req: RequestUser): Promise<Response> {
@@ -186,6 +211,7 @@ export class AuthsController {
     return wrapper.response({ message: 'Logout Success' });
   }
 
+  @ApiOperation({ summary: 'Request Forgot Password' })
   @HttpCode(HttpStatus.OK)
   @Post('forgot')
   async forgotPassword(
@@ -217,6 +243,7 @@ export class AuthsController {
     return wrapper.response({ message: 'Request already sent to mail' });
   }
 
+  @ApiOperation({ summary: 'Verification Forgot Password Token' })
   @HttpCode(HttpStatus.OK)
   @Post('forgot/verification')
   async verifyForgotPassword(
@@ -256,6 +283,7 @@ export class AuthsController {
     });
   }
 
+  @ApiOperation({ summary: 'Update Password By Forgot Password Token' })
   @Put('forgot/confirmation')
   async confirmForgotPassword(
     @Body() confirmForgotPassDto: ConfirmForgotPassDto,

@@ -20,5 +20,11 @@ import { AuthsSupabaseService } from './services/auths.supabase.service';
       useClass: NodemailerService,
     },
   ],
+  exports: [
+    {
+      provide: AuthsService,
+      useClass: AuthsSupabaseService,
+    },
+  ],
 })
 export class AuthsModule {}

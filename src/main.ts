@@ -12,7 +12,11 @@ async function bootstrap() {
     exclude: [''],
   });
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Notes API with NestJS')
