@@ -3,7 +3,7 @@ import { SupabaseProvider } from '@components/supabase/supabase.provider';
 
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
-import { UsersSupabaseService } from './services/users.supabase/users.supabase.service';
+import { UsersSupabaseService } from './services/users.supabase.service';
 import { AuthsModule } from '@modules/auths/auths.module';
 
 @Module({
