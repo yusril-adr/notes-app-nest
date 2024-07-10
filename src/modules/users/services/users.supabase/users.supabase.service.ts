@@ -81,7 +81,7 @@ export class UsersSupabaseService extends UsersService {
     });
 
     if (error?.code === 'PGRST116') {
-      throw new NotFoundException('User not found');
+      return null;
     }
 
     if (error) {

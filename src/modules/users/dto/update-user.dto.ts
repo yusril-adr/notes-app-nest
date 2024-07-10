@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsString,
   IsOptional,
@@ -17,8 +18,9 @@ export class UpdateUserDto {
   @IsOptional()
   email: string;
 
+  @Transform(({ value }) => (value === 'null' ? null : value))
   @IsUrl()
   @IsNotEmpty()
   @IsOptional()
-  profile_img: string;
+  profile_img: string | null;
 }

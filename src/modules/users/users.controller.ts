@@ -8,6 +8,7 @@ import {
   Query,
   UseGuards,
   Request,
+  NotFoundException,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -62,6 +63,10 @@ export class UsersController {
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Response<User>> {
     const user = await this.usersService.findOne(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
 
     return wrapper.response({
       data: user,
