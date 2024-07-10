@@ -6,6 +6,7 @@ import {
 import { SupabaseProvider } from '@components/supabase/supabase.provider';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from '@global/types/supabase-types';
+import dayjs from '@helpers/utils/dayjs';
 
 import { AuthsService } from '../auths.service';
 import {
@@ -217,7 +218,7 @@ export class AuthsSupabaseService extends AuthsService {
   async updatePassword(userId: string, newPassword: string): Promise<void> {
     const { error, status, statusText } = await this.supabase
       .from('users')
-      .update({ password: newPassword })
+      .update({ password: newPassword, updated_at: dayjs.utc().toISOString() })
       .eq('id', userId);
 
     console.log({

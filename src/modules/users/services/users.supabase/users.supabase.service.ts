@@ -13,6 +13,7 @@ import {
   UpdateUserParams,
 } from '@modules/users/types/users.service';
 import { User } from '@modules/users/entities/user.entity';
+import dayjs from '@helpers/utils/dayjs';
 
 @Injectable()
 export class UsersSupabaseService extends UsersService {
@@ -93,7 +94,10 @@ export class UsersSupabaseService extends UsersService {
   async update(id: string, updateUserParams: UpdateUserParams): Promise<User> {
     const { data, error, status, statusText } = await this.supabase
       .from('users')
-      .update(updateUserParams)
+      .update({
+        ...updateUserParams,
+        updated_at: dayjs.utc().toISOString(),
+      })
       .eq('id', id)
       .select('id, username, email, profile_img')
       .single();

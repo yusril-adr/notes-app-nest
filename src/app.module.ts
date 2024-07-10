@@ -7,6 +7,7 @@ import { UsersModule } from '@modules/users/users.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { NotesModule } from './modules/notes/notes.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AppService } from './app.service';
     }),
     AuthsModule,
     UsersModule,
+    NotesModule,
   ],
   controllers: [AppController],
   providers: [AppService, SupabaseProvider],
