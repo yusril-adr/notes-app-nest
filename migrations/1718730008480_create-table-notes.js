@@ -17,7 +17,7 @@ exports.up = (pgm) => {
       notNull: true,
       default: pgm.func('gen_random_uuid()'),
     },
-    shortId: {
+    short_id: {
       type: 'string',
       unique: true,
       notNull: true,

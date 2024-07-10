@@ -48,6 +48,7 @@ export type Database = {
           header: string;
           id: string;
           is_deleted: boolean;
+          short_id: string;
           updated_at: string;
           user_id: string;
         };
@@ -55,8 +56,9 @@ export type Database = {
           body: string;
           created_at?: string;
           header: string;
-          id: string;
+          id?: string;
           is_deleted?: boolean;
+          short_id: string;
           updated_at?: string;
           user_id: string;
         };
@@ -66,6 +68,7 @@ export type Database = {
           header?: string;
           id?: string;
           is_deleted?: boolean;
+          short_id?: string;
           updated_at?: string;
           user_id?: string;
         };
