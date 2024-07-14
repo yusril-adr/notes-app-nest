@@ -8,6 +8,7 @@ import { UsersModule } from '@modules/users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NotesModule } from './modules/notes/notes.module';
+import { UtilitiesModule } from './modules/utilities/utilities.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { NotesModule } from './modules/notes/notes.module';
     AuthsModule,
     UsersModule,
     NotesModule,
+    UtilitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService, SupabaseProvider],

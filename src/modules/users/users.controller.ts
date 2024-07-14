@@ -15,14 +15,14 @@ import { ApiTags } from '@nestjs/swagger';
 import { PaginationResponse, Response } from '@global/types/response.types';
 import * as wrapper from '@helpers/utils/wrapper';
 import { AccessTokenGuard } from '@guards/access-token.guards';
+import { RequestUser } from '@global/types/request-user.types';
+import { AuthsService } from '@modules/auths/auths.service';
+import { RefreshTokenGuard } from '@guards/refresh-token.guards';
 
 import { UsersService } from './users.service';
 import { FindUsersDto } from './dto/find-users.dto';
 import { User } from './entities/user.entity';
-import { RequestUser } from '@global/types/request-user.types';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthsService } from '@modules/auths/auths.service';
-import { RefreshTokenGuard } from '@guards/refresh-token.guards';
 
 @ApiTags('users')
 @Controller('v1/users')
