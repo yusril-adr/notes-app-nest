@@ -18,7 +18,6 @@ export class SupabaseProvider {
     const key = this.configService.get(
       withServiceRoleKey ? 'SUPABASE_SERVICE_ROLE_KEY' : 'SUPABASE_ANON_KEY',
     );
-    console.log(url, key);
     return createClient<Database>(url, key);
   }
 }
