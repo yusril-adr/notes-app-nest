@@ -19,7 +19,10 @@ import { UploadFilesDto } from './dto/upload-files';
 import { DeleteFilesDto } from './dto/delete-files';
 
 @ApiTags('utilities')
-@Controller('v1/utilities')
+@Controller({
+  path: 'utilities',
+  version: '1',
+})
 export class UtilitiesController {
   constructor(private readonly storageService: StorageService) {}
 

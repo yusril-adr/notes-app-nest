@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 
 import { ConfigService } from '@nestjs/config';
@@ -13,6 +13,11 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // rawBody: true,
   });
+
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
+
   app.setGlobalPrefix('api', {
     exclude: [''],
   });

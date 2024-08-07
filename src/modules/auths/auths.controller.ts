@@ -51,7 +51,10 @@ import { VerifyForgotPassDto } from './dto/verify-forgot-password.dto';
 import { ConfirmForgotPassDto } from './dto/confirm-forgot-password.dto';
 
 @ApiTags('auths')
-@Controller('v1/auths')
+@Controller({
+  path: 'auths',
+  version: '1',
+})
 export class AuthsController {
   constructor(
     private readonly authsService: AuthsService,

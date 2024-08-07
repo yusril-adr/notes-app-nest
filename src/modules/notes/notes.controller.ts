@@ -26,7 +26,10 @@ import { Note } from './entities/note.entity';
 import { FindNoteDto } from './dto/find-note.dto';
 
 @ApiTags('notes')
-@Controller('v1/notes')
+@Controller({
+  path: 'notes',
+  version: '1',
+})
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 

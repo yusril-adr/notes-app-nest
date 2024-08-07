@@ -25,7 +25,10 @@ import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('users')
-@Controller('v1/users')
+@Controller({
+  path: 'users',
+  version: '1',
+})
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
