@@ -35,6 +35,12 @@ export class Note {
   body: string;
 
   @ApiProperty({
+    example: true,
+    description: 'Is note publicaly visible',
+  })
+  is_public: boolean;
+
+  @ApiProperty({
     example: dayjs.utc().toISOString(),
     description: 'The date note created',
     default: dayjs.utc().toISOString(),

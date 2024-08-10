@@ -36,6 +36,11 @@ exports.up = (pgm) => {
       type: 'string',
       notNull: true,
     },
+    is_public: {
+      type: 'boolean',
+      notNull: true,
+      default: true,
+    },
     created_at: {
       type: 'datetime',
       notNull: true,

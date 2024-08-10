@@ -30,7 +30,7 @@ export class NotesSupabaseService extends NotesService {
     const { data, error, status, statusText } = await this.supabase
       .from('notes')
       .insert(createParams)
-      .select('id, short_id, user_id, header, body, created_at')
+      .select('id, short_id, user_id, header, body, is_public, created_at')
       .limit(1)
       .single();
 
@@ -49,7 +49,7 @@ export class NotesSupabaseService extends NotesService {
     let query = this.supabase
       .from('notes')
       .select(
-        'id, short_id, header, body, created_at, user:users(id, username, profile_img)',
+        'id, short_id, header, body, is_public, created_at, user:users(id, username, profile_img)',
         { count: 'exact' },
       );
 
@@ -99,7 +99,7 @@ export class NotesSupabaseService extends NotesService {
     const { data, error, status, statusText } = await this.supabase
       .from('notes')
       .select(
-        'id, short_id, header, body, created_at, user:users(id, username, profile_img)',
+        'id, short_id, header, body, is_public, created_at, user:users(id, username, profile_img)',
       )
       .or(query.join(','))
       .limit(1)
@@ -133,7 +133,7 @@ export class NotesSupabaseService extends NotesService {
         updated_at: dayjs.utc().toISOString(),
       })
       .eq('short_id', short_id)
-      .select('id, short_id, user_id, header, body, created_at')
+      .select('id, short_id, user_id, header, body, is_public, created_at')
       .single();
 
     console.log({

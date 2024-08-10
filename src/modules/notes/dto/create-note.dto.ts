@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateNoteDto {
   @IsString()
@@ -8,4 +9,9 @@ export class CreateNoteDto {
   @IsString()
   @IsNotEmpty()
   body: string;
+
+  @Transform(({ value }) => (value === 'true' ? true : false))
+  @IsNotEmpty()
+  @IsOptional()
+  is_public: boolean = true;
 }

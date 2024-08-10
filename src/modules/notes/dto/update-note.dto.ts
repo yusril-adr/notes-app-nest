@@ -1,6 +1,7 @@
 import { PartialType } from '@nestjs/swagger';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { CreateNoteDto } from './create-note.dto';
-import { IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateNoteDto extends PartialType(CreateNoteDto) {
   @IsString()
@@ -10,4 +11,9 @@ export class UpdateNoteDto extends PartialType(CreateNoteDto) {
   @IsString()
   @IsNotEmpty()
   body: string;
+
+  @Transform(({ value }) => (value === 'true' ? true : false))
+  @IsNotEmpty()
+  @IsOptional()
+  is_public: boolean = true;
 }
