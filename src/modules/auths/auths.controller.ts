@@ -32,9 +32,9 @@ import ShortUniqueId from 'short-unique-id';
 import * as wrapper from '@helpers/utils/wrapper';
 import dayjs from '@helpers/utils/dayjs';
 import { AccessTokenGuard } from '@guards/access-token.guards';
-import { Response } from '@global/types/response.types';
+import { Response } from '@global/types/response.type';
 import { RefreshTokenGuard } from '@guards/refresh-token.guards';
-import { RequestUser } from '@global/types/request-user.types';
+import { RequestUser } from '@global/types/request-user.type';
 import { MailService } from '@global/services/mail/mail.service';
 
 import { AuthsService } from './auths.service';

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
-import { Database } from '@global/types/supabase-types';
+import { Database } from '@global/types/supabase-type';
 
 type initParams = {
   withServiceRoleKey?: boolean;

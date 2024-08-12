@@ -16,8 +16,8 @@ import { ApiTags } from '@nestjs/swagger';
 import * as wrapper from '@helpers/utils/wrapper';
 import randomUUID from '@helpers/utils/shortIdGenerator';
 import { AccessTokenGuard } from '@guards/access-token.guards';
-import { RequestUser } from '@global/types/request-user.types';
-import { PaginationResponse, Response } from '@global/types/response.types';
+import { RequestUser } from '@global/types/request-user.type';
+import { PaginationResponse, Response } from '@global/types/response.type';
 
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
@@ -56,7 +56,7 @@ export class NotesController {
   async findAll(
     @Query() findNoteDto: FindNoteDto,
   ): Promise<PaginationResponse<Note[]>> {
-    const { row, page, search_value, search_key } = findNoteDto;
+    const { row, page, filter, search_value, search_key } = findNoteDto;
     const search =
       search_key !== null && search_value !== null
         ? { [search_key]: search_value }
@@ -66,6 +66,7 @@ export class NotesController {
       row,
       page,
       search,
+      filter,
     });
 
     return wrapper.paginationResponse({

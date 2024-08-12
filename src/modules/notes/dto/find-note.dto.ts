@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsString,
   Min,
@@ -6,6 +6,9 @@ import {
   IsOptional,
   IsNotEmpty,
 } from 'class-validator';
+import { FilterQueryType } from '@global/types/filter-type';
+import { Note } from '../entities/note.entity';
+import { transformFilterDto } from '@helpers/utils/common';
 
 export class FindNoteDto {
   @IsNumber()
@@ -30,4 +33,10 @@ export class FindNoteDto {
   @IsNotEmpty()
   @IsOptional()
   search_key: string = null;
+
+  @Transform(transformFilterDto)
+  @IsOptional()
+  filter: {
+    [key in keyof Note]?: FilterQueryType<Note[key]>;
+  };
 }

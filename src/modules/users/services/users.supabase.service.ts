@@ -1,11 +1,12 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { SupabaseProvider } from '@components/supabase/supabase.provider';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@global/types/supabase-types';
+import { Database } from '@global/types/supabase-type';
 import { UsersService } from '@modules/users/users.service';
 import {
   FindAllUsersResponse,
@@ -18,6 +19,7 @@ import dayjs from '@helpers/utils/dayjs';
 @Injectable()
 export class UsersSupabaseService extends UsersService {
   private readonly supabase: SupabaseClient<Database>;
+  private readonly logger = new Logger(UsersSupabaseService.name);
   constructor(private readonly supabaseProvider: SupabaseProvider) {
     super();
     this.supabase = this.supabaseProvider.init();
@@ -53,7 +55,7 @@ export class UsersSupabaseService extends UsersService {
       offset + (row - 1),
     );
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'find all users',
@@ -74,7 +76,7 @@ export class UsersSupabaseService extends UsersService {
       .limit(1)
       .single();
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'find one user',
@@ -102,7 +104,7 @@ export class UsersSupabaseService extends UsersService {
       .select('id, username, email, profile_img')
       .single();
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'update user',
@@ -125,7 +127,7 @@ export class UsersSupabaseService extends UsersService {
       .delete()
       .eq('id', id);
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'delete one user',

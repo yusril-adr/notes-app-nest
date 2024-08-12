@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import * as nodemailer from 'nodemailer';
 
 import { MailService } from '@global/services/mail/mail.service';
-import { SendMailParams } from '@global/types/mail.services.types';
+import { SendMailParams } from '@global/types/mail.services.type';
 
 @Injectable()
 export class NodemailerService extends MailService {
   private readonly transporter: nodemailer.Transporter;
+  private readonly logger = new Logger(NodemailerService.name);
   constructor(public readonly configService: ConfigService) {
     super();
 
@@ -36,7 +37,7 @@ export class NodemailerService extends MailService {
       html: content,
     });
 
-    console.log('Message sent: %s', info.messageId);
+    this.logger.log('Message sent: %s', info.messageId);
     // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
   }
 }

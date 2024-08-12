@@ -1,6 +1,6 @@
 import { Optional } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import dayjs from 'dayjs';
+import dayjs from '@helpers/utils/dayjs';
 
 export class Note {
   @ApiProperty({

@@ -12,10 +12,10 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { PaginationResponse, Response } from '@global/types/response.types';
+import { PaginationResponse, Response } from '@global/types/response.type';
 import * as wrapper from '@helpers/utils/wrapper';
 import { AccessTokenGuard } from '@guards/access-token.guards';
-import { RequestUser } from '@global/types/request-user.types';
+import { RequestUser } from '@global/types/request-user.type';
 import { AuthsService } from '@modules/auths/auths.service';
 import { RefreshTokenGuard } from '@guards/refresh-token.guards';
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
-import { SendMailParams } from '@global/types/mail.services.types';
+import { SendMailParams } from '@global/types/mail.services.type';
 
 @Injectable()
 export class MailService {

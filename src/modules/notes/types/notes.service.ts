@@ -1,3 +1,4 @@
+import { FilterQueryType } from '@global/types/filter-type';
 import { Note } from '../entities/note.entity';
 
 export type CreateParams = {
@@ -12,7 +13,12 @@ export type FindOneParams = Record<string, any>;
 export type FindAllParams = {
   row: number | 10;
   page: number | 1;
-  filter?: undefined | null | Record<string, any>;
+  filter?:
+    | undefined
+    | null
+    | {
+        [key in keyof Note]?: FilterQueryType<Note[key]>;
+      };
   search?: undefined | null | Record<string, any>;
 };
 

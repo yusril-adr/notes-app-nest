@@ -1,4 +1,4 @@
-import { Response, PaginationResponse } from '@global/types/response.types';
+import { Response, PaginationResponse } from '@global/types/response.type';
 
 type ResponseParams<T> = Omit<Response<T>, 'statusCode'> & {
   statusCode?: number;

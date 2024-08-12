@@ -12,7 +12,7 @@ import * as wrapper from '@helpers/utils/wrapper';
 import randomUUID from '@helpers/utils/shortIdGenerator';
 import { ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { Response } from '@global/types/response.types';
+import { Response } from '@global/types/response.type';
 import { AccessTokenGuard } from '@guards/access-token.guards';
 
 import { UploadFilesDto } from './dto/upload-files';

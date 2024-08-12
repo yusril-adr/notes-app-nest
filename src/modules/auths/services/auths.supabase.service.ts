@@ -2,10 +2,11 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
+  Logger,
 } from '@nestjs/common';
 import { SupabaseProvider } from '@components/supabase/supabase.provider';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@global/types/supabase-types';
+import { Database } from '@global/types/supabase-type';
 import dayjs from '@helpers/utils/dayjs';
 
 import { AuthsService } from '../auths.service';
@@ -21,6 +22,8 @@ import { Auth } from '../entities/auth.entity';
 @Injectable()
 export class AuthsSupabaseService extends AuthsService {
   private readonly supabase: SupabaseClient<Database>;
+  private readonly logger = new Logger(AuthsSupabaseService.name);
+
   constructor(private readonly supabaseProvider: SupabaseProvider) {
     super();
     this.supabase = this.supabaseProvider.init();
@@ -34,7 +37,7 @@ export class AuthsSupabaseService extends AuthsService {
       .limit(1)
       .single();
 
-    console.log({ status, statusText, scope: 'register user' });
+    this.logger.log({ status, statusText, scope: 'register user' });
 
     if (error?.code === '23505') {
       throw new ConflictException(error.message);
@@ -61,7 +64,7 @@ export class AuthsSupabaseService extends AuthsService {
       .limit(1)
       .single();
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'find one auth',
@@ -84,7 +87,7 @@ export class AuthsSupabaseService extends AuthsService {
       .from('refresh_tokens')
       .insert({ token });
 
-    console.log({ status, statusText, scope: 'saving refresh token' });
+    this.logger.log({ status, statusText, scope: 'saving refresh token' });
 
     if (error) {
       throw new BadRequestException(error.message);
@@ -99,7 +102,7 @@ export class AuthsSupabaseService extends AuthsService {
       .limit(1)
       .single();
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'find one auth',
@@ -123,7 +126,7 @@ export class AuthsSupabaseService extends AuthsService {
       .delete()
       .eq('token', token);
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'delete refresh token',
@@ -131,7 +134,7 @@ export class AuthsSupabaseService extends AuthsService {
 
     // Data not found
     if (error?.code === 'PGRST116') {
-      console.log({
+      this.logger.log({
         params: { token },
         status,
         statusText,
@@ -150,7 +153,11 @@ export class AuthsSupabaseService extends AuthsService {
       .from('forgot_password_tokens')
       .insert(saveForgotToken);
 
-    console.log({ status, statusText, scope: 'saving forgot password token' });
+    this.logger.log({
+      status,
+      statusText,
+      scope: 'saving forgot password token',
+    });
 
     if (error) {
       throw new BadRequestException(error.message);
@@ -169,7 +176,7 @@ export class AuthsSupabaseService extends AuthsService {
       .limit(1)
       .single();
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'verify forgot password token',
@@ -193,7 +200,7 @@ export class AuthsSupabaseService extends AuthsService {
       .delete()
       .eq('token', token);
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'delete forgot password token',
@@ -201,7 +208,7 @@ export class AuthsSupabaseService extends AuthsService {
 
     // Data not found
     if (error?.code === 'PGRST116') {
-      console.log({
+      this.logger.log({
         params: { token },
         status,
         statusText,
@@ -221,7 +228,7 @@ export class AuthsSupabaseService extends AuthsService {
       .update({ password: newPassword, updated_at: dayjs.utc().toISOString() })
       .eq('id', userId);
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'update password success',

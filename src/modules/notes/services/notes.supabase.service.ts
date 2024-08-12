@@ -1,11 +1,12 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { SupabaseProvider } from '@components/supabase/supabase.provider';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@global/types/supabase-types';
+import { Database } from '@global/types/supabase-type';
 import dayjs from '@helpers/utils/dayjs';
 
 import { NotesService } from '../notes.service';
@@ -17,10 +18,13 @@ import {
   FindOneParams,
   UpdateParams,
 } from '../types/notes.service';
+import { parseSupabaseFilterQuery } from '@helpers/utils/common';
 
 @Injectable()
 export class NotesSupabaseService extends NotesService {
   private readonly supabase: SupabaseClient<Database>;
+  private readonly logger = new Logger(NotesSupabaseService.name);
+
   constructor(private readonly supabaseProvider: SupabaseProvider) {
     super();
     this.supabase = this.supabaseProvider.init();
@@ -34,7 +38,7 @@ export class NotesSupabaseService extends NotesService {
       .limit(1)
       .single();
 
-    console.log({ status, statusText, scope: 'create note' });
+    this.logger.log({ status, statusText, scope: 'create note' });
 
     if (error) {
       throw new BadRequestException(error.message);
@@ -54,13 +58,7 @@ export class NotesSupabaseService extends NotesService {
       );
 
     if (filter) {
-      const keys = Object.keys(filter);
-
-      const filterQuery = keys.map((key) => {
-        return `${key}.eq.${filter[key]}`;
-      });
-
-      query = query.or(filterQuery.join(','));
+      query = parseSupabaseFilterQuery(filter, query);
     }
 
     if (search) {
@@ -76,10 +74,10 @@ export class NotesSupabaseService extends NotesService {
       offset + (row - 1),
     );
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
-      scope: 'find all users',
+      scope: 'find all notes',
     });
 
     if (error) {
@@ -105,10 +103,10 @@ export class NotesSupabaseService extends NotesService {
       .limit(1)
       .single();
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
-      scope: 'find one user',
+      scope: 'find one note',
     });
 
     if (error?.code === 'PGRST116') {
@@ -136,7 +134,7 @@ export class NotesSupabaseService extends NotesService {
       .select('id, short_id, user_id, header, body, is_public, created_at')
       .single();
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'update note by short id',
@@ -159,7 +157,7 @@ export class NotesSupabaseService extends NotesService {
       .delete()
       .eq('short_id', short_id);
 
-    console.log({
+    this.logger.log({
       status,
       statusText,
       scope: 'delete one note by short id',

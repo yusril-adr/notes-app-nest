@@ -1,4 +1,4 @@
-import { Database } from '@global/types/supabase-types';
+import { Database } from '@global/types/supabase-type';
 import { ConfigService } from '@nestjs/config';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
