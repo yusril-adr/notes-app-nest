@@ -4,9 +4,7 @@ export const transformFilterDto = ({ value }) => {
     Object.keys(value[key]).forEach((operator) => {
       if (value[key][operator]?.toLowerCase() === 'true') {
         formatedValue[key][operator] = true;
-      }
-
-      if (value[key][operator]?.toLowerCase() === 'false') {
+      } else if (value[key][operator]?.toLowerCase() === 'false') {
         formatedValue[key][operator] = false;
       }
     });
