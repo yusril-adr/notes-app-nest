@@ -9,13 +9,13 @@ export class ConfirmForgotPassDto extends VerifyForgotPassDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4)
+  @MinLength(8)
   @MaxLength(20)
   new_password: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4)
+  @MinLength(8)
   @MaxLength(20)
   @Match('new_password')
   confirm_new_password: string;

@@ -22,13 +22,13 @@ export class RegisterAuthDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4)
+  @MinLength(8)
   @MaxLength(20)
   password: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4)
+  @MinLength(8)
   @MaxLength(20)
   @Match('password')
   confirm_password: string;
