@@ -10,7 +10,7 @@ export class CreateNoteDto {
   @IsNotEmpty()
   body: string;
 
-  @Transform(({ value }) => (value === 'true' ? true : false))
+  @Transform(({ value }) => value === 'true')
   @IsNotEmpty()
   @IsOptional()
   is_public: boolean = true;
